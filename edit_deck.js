@@ -86,6 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
   fetchDeckCards();
   const searchInput = document.getElementById('cardSearchInput');
   const searchBtn = document.getElementById('cardSearchBtn');
+  searchInput.disabled = false;
+  searchBtn.disabled = false;
   searchBtn.addEventListener('click', () => {
     const q = searchInput.value.trim();
     if (q.length < 2) return;

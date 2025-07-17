@@ -135,8 +135,7 @@ function selectFirstDeck() {
 function afterDecksLoaded() {
   selectFirstDeck();
 }
-// Card search UI temporarily disabled
-/*
+
 document.addEventListener('DOMContentLoaded', function() {
   const cardSearchInput = document.getElementById('cardSearchInput');
   const cardSearchResults = document.getElementById('cardSearchResults');
@@ -166,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300);
   });
 });
-*/
+
 window.addCardToDeck = async function(scryfall_id, cardName) {
   if (!selectedDeckId) {
     alert('Please create or select a deck first.');
@@ -198,12 +197,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (window.setupUserBar) window.setupUserBar();
       });
   }
-
-  // Hide card search UI from the user
-  const cardSearchInput = document.getElementById('cardSearchInput');
-  if (cardSearchInput) cardSearchInput.style.display = 'none';
-  const cardSearchResults = document.getElementById('cardSearchResults');
-  if (cardSearchResults) cardSearchResults.style.display = 'none';
 
   loadDecks();
 });

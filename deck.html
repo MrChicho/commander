@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Deck Viewer</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <style>
+    .deck-section { margin-bottom: 2rem; }
+    .deck-section h3 { color: #00ffcc; margin-bottom: 0.5rem; }
+    .card-list { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .card-item {
+      background: #222;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 0.5rem;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 2px 8px #0002;
+    }
+    .card-item img { width: 100%; border-radius: 6px; }
+    .card-item .card-name { font-weight: bold; margin: 0.5rem 0 0.2rem 0; }
+    .card-item .card-qty { color: #aaa; font-size: 0.9em; }
+    #addCardForm { margin-bottom: 2rem; }
+    #addCardForm input, #addCardForm button { margin-right: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div id="userbarContainer"></div>
+  <div style="max-width:900px;margin:2rem auto;">
+    <h2 id="deckTitle">Deck</h2>
+    <div id="deckMeta"></div>
+    <form id="addCardForm" autocomplete="off">
+      <input type="text" id="cardSearchInput" placeholder="Add card by name..." required>
+      <input type="number" id="cardQtyInput" value="1" min="1" style="width:60px;">
+      <button type="submit">Add Card</button>
+      <span id="addCardStatus" style="color:#00ffcc;"></span>
+    </form>
+    <div id="deckSections"></div>
+  </div>
+  <script src="dashboard.js"></script>
+  <script src="deck.js"></script>
+</body>
+</html>
