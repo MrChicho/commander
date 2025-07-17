@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <style>
+    body {
+      background: #181818;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .register-container {
+      background: #222;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px #0004;
+      max-width: 400px;
+      margin: 3rem auto 0 auto;
+      padding: 2rem 2.5rem 2rem 2.5rem;
+      border: 1px solid #333;
+    }
+    h2 {
+      color: #00ffcc;
+      text-align: center;
+      margin-top: 0;
+    }
+    label {
+      font-weight: bold;
+      color: #fff;
+    }
+    input[type="email"],
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.2rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+      border: 1px solid #555;
+      background: #181818;
+      color: #fff;
+      font-size: 1rem;
+    }
+    button[type="submit"] {
+      width: 100%;
+      background: #00ffcc;
+      color: #181818;
+      border: none;
+      padding: 0.7rem 0;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.2s;
+    }
+    button[type="submit"]:hover {
+      background: #00ccaa;
+    }
+    .login-link {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #aaa;
+    }
+    .login-link a {
+      color: #00ffcc;
+      text-decoration: none;
+    }
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="userbarContainer"></div>
+  <div class="register-container">
+    <h2>Create Account</h2>
+    <form action="api/register.php" method="POST" autocomplete="off">
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" required />
+
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" required />
+
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required />
+
+      <button type="submit">Register</button>
+    </form>
+    <div class="login-link">
+      Already have an account? <a href="login.html">Login here</a>
+    </div>
+  </div>
+  <script>
+    fetch('/userbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('userbarContainer').innerHTML = html;
+        if (typeof setupUserBar === 'function') setupUserBar();
+      });
+  </script>
+</body>
+</html>

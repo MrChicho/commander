@@ -1,0 +1,13 @@
+[15-Jul-2025 15:57:39 America/Chicago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 7
+[15-Jul-2025 15:59:35 America/Chicago] PHP Warning:  Undefined global variable $_SESSION in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 6
+[15-Jul-2025 15:59:35 America/Chicago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 9
+[15-Jul-2025 15:59:40 America/Chicago] PHP Warning:  Undefined global variable $_SESSION in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 6
+[15-Jul-2025 15:59:40 America/Chicago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 9
+[15-Jul-2025 16:06:30 America/Chicago] PHP Warning:  Undefined global variable $_SESSION in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 6
+[15-Jul-2025 16:06:30 America/Chicago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 9
+[15-Jul-2025 16:06:32 America/Chicago] PHP Warning:  Undefined global variable $_SESSION in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 6
+[15-Jul-2025 16:06:32 America/Chicago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 9
+[15-Jul-2025 16:07:03 America/Chicago] PHP Warning:  Undefined global variable $_SESSION in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 6
+[15-Jul-2025 16:07:03 America/Chicago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 9
+[15-Jul-2025 16:07:13 America/Chicago] PHP Warning:  Undefined global variable $_SESSION in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 6
+[15-Jul-2025 16:07:13 America/Chicago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home1/foicyrte/public_html/website_6d0047f5/api/me.php on line 9

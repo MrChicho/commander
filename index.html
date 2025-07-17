@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commander Deckbuilder</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    #userBar {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: #222;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 5px rgba(0,0,0,0.5);
+      z-index: 9999;
+      font-size: 0.9rem;
+    }
+    #userBar a {
+      color: #00ffcc;
+      text-decoration: none;
+      margin-left: 0.3rem;
+    }
+    #userBar a:hover {
+      text-decoration: underline;
+    }
+    #logoutBtn {
+      margin-left: 1rem;
+      background: #ff4444;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: none;
+    }
+    #logoutBtn:hover {
+      background: #cc0000;
+    }
+    header {
+      padding: 2rem;
+      text-align: center;
+      background: #1a1a1a;
+    }
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="userbarContainer"></div>
+
+  <header>
+    <h1>🧙‍♂️ Commander Deckbuilder</h1>
+  </header>
+
+  <main>
+    <p>Build your commander decks, search cards, and test your ideas!</p>
+    <p><strong>Coming soon:</strong> Add cards, view saved decks, and playtest!</p>
+  </main>
+
+  <script>
+    fetch('/userbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('userbarContainer').innerHTML = html;
+        setupUserBar();
+      });
+
+    function setupUserBar() {
+      async function checkSession() {
+        const res = await fetch('/api/me.php');
+        const data = await res.json();
+        const userStatus = document.getElementById('userStatus');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        if (data.logged_in) {
+          userStatus.innerText = `👋 ${data.email}`;
+          logoutBtn.style.display = 'inline-block';
+        } else {
+          userStatus.innerHTML = `Not logged in. <a href="/login.html">Login</a> or <a href="/register.html">Register</a>`;
+          logoutBtn.style.display = 'none';
+        }
+      }
+
+      checkSession();
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+          await fetch('/api/logout.php');
+          window.location.href = '/login.html';
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>

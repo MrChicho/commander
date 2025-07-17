@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      background: #222;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    input, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 0.25rem;
+    }
+    button {
+      background-color: #00cc99;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00aa88;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="userbarContainer"></div>
+
+  <h2 style="text-align:center;">🔐 Login</h2>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    // Dynamically inject user bar
+    fetch('/userbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('userbarContainer').innerHTML = html;
+        setupUserBar();
+      });
+
+    function setupUserBar() {
+      async function checkSession() {
+        const res = await fetch('/api/me.php');
+        const data = await res.json();
+        const userStatus = document.getElementById('userStatus');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        if (data.logged_in) {
+          userStatus.innerText = `👋 ${data.email}`;
+          logoutBtn.style.display = 'inline-block';
+        } else {
+          userStatus.innerHTML = `Not logged in. <a href="/login.html">Login</a> or <a href="/register.html">Register</a>`;
+          logoutBtn.style.display = 'none';
+        }
+      }
+
+      checkSession();
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+          await fetch('/api/logout.php');
+          window.location.href = '/login.html';
+        });
+      }
+    }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('loginForm');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        try {
+          const res = await fetch('/api/login.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ email, password })
+          });
+
+          const data = await res.json();
+
+          if (res.ok && data.success) {
+            window.location.href = '/dashboard.html';
+          } else {
+            alert(data.error || 'Login failed');
+          }
+        } catch (err) {
+          alert('Login error: ' + err.message);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
