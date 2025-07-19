@@ -25,6 +25,7 @@
   </style>
 </head>
 <body>
+  <div id="deck-cards" class="card-list"></div>
   <div id="userbarContainer"></div>
   <div style="max-width:900px;margin:2rem auto;">
     <h2 id="deckTitle">Deck</h2>
@@ -39,5 +40,72 @@
   </div>
   <script src="dashboard.js"></script>
   <script src="deck.js"></script>
+  <script>
+let currentDeckId = new URLSearchParams(window.location.search).get('id');
+
+async function fetchDeck() {
+  const res = await fetch(`/api/get_deck.php?id=${currentDeckId}`);
+  const data = await res.json();
+
+  if (!data.success) {
+    document.getElementById('deck-cards').textContent = 'Error loading deck.';
+    return;
+  }
+
+  document.querySelector('h1').textContent = `🧙 ${data.deck.name}`;
+  const cardContainer = document.getElementById('deck-cards');
+  cardContainer.innerHTML = '';
+
+  data.cards.forEach(card => {
+    cardContainer.appendChild(renderDeckCard(card));
+  });
+}
+
+function renderDeckCard(card) {
+  const cardDiv = document.createElement('div');
+  cardDiv.className = 'card-entry';
+
+  const img = document.createElement('img');
+  img.src = card.image_uri;
+  img.alt = card.card_name;
+  img.style.width = '100px';
+
+  const name = document.createElement('p');
+  name.textContent = `${card.card_name} x${card.quantity}`;
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = '🗑️ Delete';
+  deleteBtn.className = 'delete-card-btn';
+  deleteBtn.onclick = async () => {
+    const confirmDelete = confirm(`Remove ${card.card_name} from deck?`);
+    if (!confirmDelete) return;
+
+    const res = await fetch('/api/delete_card.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        deck_id: currentDeckId,
+        scryfall_id: card.scryfall_id
+      })
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      cardDiv.remove();
+    } else {
+      alert('Failed to delete card.');
+    }
+  };
+
+  cardDiv.appendChild(img);
+  cardDiv.appendChild(name);
+  cardDiv.appendChild(deleteBtn);
+  return cardDiv;
+}
+
+// Run on page load
+fetchDeck();
+</script>
+
 </body>
 </html>

@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-  
   <meta charset="UTF-8" />
   <title>My Decks</title>
   <link rel="stylesheet" href="dashboard.css">
-
   <script defer src="dashboard.js"></script>
-
-
-
-
-  </head>
-  <body>
-      <div id="welcomeMsg" style="display:none;background:#00ffcc;color:#181818;padding:1rem 2rem;margin:1rem auto 0 auto;max-width:500px;border-radius:8px;text-align:center;font-weight:bold;">
-  Welcome! Your registration was successful. Start by creating your first deck below.
-</div>
-<script>
-  if (window.location.search.includes('registered=1')) {
-    document.getElementById('welcomeMsg').style.display = 'block';
-    setTimeout(() => {
-      document.getElementById('welcomeMsg').style.display = 'none';
-    }, 6000);
-  }
-</script>
-  <h1>ðŸ“š My Commander Decks</h1>
+</head>
+<body>
   <div id="userbarContainer"></div>
+  <h1>📚 My Commander Decks</h1>
+  <div id="welcomeMsg" style="display:none;background:#00ffcc;color:#181818;padding:1rem 2rem;margin:1rem auto 0 auto;max-width:500px;border-radius:8px;text-align:center;font-weight:bold;">
+    Welcome! Your registration was successful. Start by creating your first deck below.
+  </div>
+  <script>
+    if (window.location.search.includes('registered=1')) {
+      document.getElementById('welcomeMsg').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('welcomeMsg').style.display = 'none';
+      }, 6000);
+    }
+    // Load userbar
+    fetch('/userbar.html').then(res => res.text()).then(html => {
+      document.getElementById('userbarContainer').innerHTML = html;
+      if (window.setupUserBar) window.setupUserBar();
+    });
+  </script>
   <input type="text" id="searchInput" placeholder="Search decks..." style="width:100%;margin:1rem 0;padding:0.5rem;border-radius:4px;border:1px solid #555;background:#222;color:#fff;" />
-
   <form id="deckForm" style="display:flex;flex-direction:column;gap:0.5rem;max-width:400px;">
     <label for="name" style="font-weight:bold;">Deck name</label>
     <input type="text" id="name" placeholder="Deck name" required style="min-width:180px;max-width:300px;" />
@@ -36,12 +33,6 @@
     <textarea id="description" placeholder="Deck description (optional)" style="width:100%;height:60px;resize:none;"></textarea>
     <button type="submit" style="height:40px;">Create Deck</button>
   </form>
-
-  <!-- <div id="cardAdder" style="margin:2rem 0;padding:1rem;background:#222;border-radius:8px;max-width:500px;">
-    <h3 style="margin-top:0;color:#00ffcc;">Add Cards to Deck</h3>
-    <input type="text" id="cardSearchInput" placeholder="Search for cards..." style="width:100%;padding:0.5rem;border-radius:4px;border:1px solid #555;background:#1c1c1c;color:#fff;" />
-    <div id="cardSearchResults" style="margin-top:0.5rem;"></div>
-  </div> -->
-
-  <section id="decks"></section>
-
+  <section id="decks" class="deck-grid"></section>
+</body>
+</html>
